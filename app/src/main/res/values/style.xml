@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="backgroundIniciobtn">
+        <item name="backgroundTint">@color/taronja</item>
+    </style>
+    <style name="backgroundLogin">
+        <item name="background">@color/fondoLogin</item>
+    </style>
+    <style name="btnLogin">
+        <item name="backgroundTint">@color/green</item>
+    </style>
+    <style name="btnRegister">
+        <item name="backgroundTint">@color/gray</item>
+    </style>
+    <style name="backgroudAnimales">
+        <item name="background">@color/fondoanimales</item>
+    </style>
+</resources>
