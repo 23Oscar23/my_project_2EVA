@@ -29,7 +29,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="56dp"
             android:text="@string/roedores"
-            android:textSize="60dp"
+            android:textSize="55dp"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,12 +38,12 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="272dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
             android:text="@string/comida"
             android:textSize="40dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
