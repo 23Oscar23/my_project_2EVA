@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragments.MyPetFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tituloMascota"
+            android:gravity="center"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/videoView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/perro"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/videoView2"
+            android:layout_width="match_parent"
+            android:layout_height="368dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/gato" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/videoView3"
+            android:layout_width="wrap_content"
+            android:layout_height="370dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/hamster" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/videoView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pajaro"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

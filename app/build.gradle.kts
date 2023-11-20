@@ -42,6 +42,7 @@ dependencies {
 
     //ADDED by Oscar Toledo
     implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
     //END
 
     implementation("androidx.core:core-ktx:1.7.0")

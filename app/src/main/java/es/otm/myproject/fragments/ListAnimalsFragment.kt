@@ -20,6 +20,13 @@ class ListAnimalsFragment : Fragment() {
     private lateinit var binding: FragmentListAnimalsBinding
     private lateinit var mListener: FragmentListAnimalsListener
 
+    val animal = mutableListOf<Animales>(
+        Animales("Dog", R.drawable.dog_image),
+        Animales("Cat", R.drawable.cat_image),
+        Animales("Rodents", R.drawable.rabbit_image),
+        Animales("Bird", R.drawable.bird_image)
+    )
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -36,10 +43,53 @@ class ListAnimalsFragment : Fragment() {
     ): View? {
         binding = FragmentListAnimalsBinding.inflate(inflater, container, false)
 
+        val funcion = {nomMascota: String, fotoMascota: String ->
+            if(fotoMascota == "DOG"){
+                animal.add(Animales(nomMascota, R.drawable.dog_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "CAT"){
+                animal.add(Animales(nomMascota, R.drawable.cat_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "RODENT"){
+                animal.add(Animales(nomMascota, R.drawable.rabbit_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "BIRD"){
+                animal.add(Animales(nomMascota, R.drawable.bird_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "Other"){
+                animal.add(Animales(nomMascota, R.drawable.interrogante))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "PERRO"){
+                animal.add(Animales(nomMascota, R.drawable.dog_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "GATO"){
+                animal.add(Animales(nomMascota, R.drawable.cat_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "ROEDOR"){
+                animal.add(Animales(nomMascota, R.drawable.rabbit_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "PAJARO"){
+                animal.add(Animales(nomMascota, R.drawable.bird_image))
+                setUpRecyclerView()
+            }
+            if(fotoMascota == "Otro"){
+                animal.add(Animales(nomMascota, R.drawable.interrogante))
+                setUpRecyclerView()
+            }
+        }
+
         binding.fab.setOnClickListener {
             Snackbar.make(binding.coordinator, "Button to Create a New Pet", Snackbar.LENGTH_SHORT)
                 .setAction("CREATE PET", View.OnClickListener {
-                    FirstDialogFragment().show(requireActivity().supportFragmentManager, "")
+                    FirstDialogFragment(funcion).show(requireActivity().supportFragmentManager, "")
                 })
                 .show()
         }
@@ -52,13 +102,6 @@ class ListAnimalsFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        val animal = mutableListOf<Animales>(
-            Animales("Dog", R.drawable.dog_image),
-            Animales("Cat", R.drawable.cat_image),
-            Animales("Rodents", R.drawable.rabbit_image),
-            Animales("Bird", R.drawable.bird_image)
-        )
-
         val animalClickFunction = { animales: Animales ->
             Toast.makeText(requireContext(), animales.name, Toast.LENGTH_SHORT).show()
             mListener.onAnimalClicked(animales.name)

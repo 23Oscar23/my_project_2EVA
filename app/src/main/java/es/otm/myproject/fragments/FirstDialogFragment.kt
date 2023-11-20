@@ -9,14 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
 import es.otm.myproject.R
 
+class FirstDialogFragment(private val contenido: (TituloMascota: String, TipoMascota: String) -> Unit): DialogFragment(), AdapterView.OnItemSelectedListener {
 
-class FirstDialogFragment : DialogFragment(), AdapterView.OnItemSelectedListener {
-
-    private lateinit var mListener: FirstDialogListener
     private lateinit var petSelected: Spinner
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,30 +37,14 @@ class FirstDialogFragment : DialogFragment(), AdapterView.OnItemSelectedListener
             builder
                 .setView(view)
                 .setPositiveButton("CREATE"){ dialog, id ->
-                    mListener.onDialogClick()
+                    contenido(view.findViewById<TextView>(R.id.petName).text.toString(),view.findViewById<Spinner>(R.id.petSelected).selectedItem.toString())
                 }
                 .setNegativeButton("CANCEL"){ dialog, id ->
-                    mListener.onCancelClick()
+                    Snackbar.make(requireView(), "CREATE PET CANCELED", Snackbar.LENGTH_SHORT).show()
                 }
-
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
-    }
-
-    interface FirstDialogListener{
-        fun onDialogClick()
-        fun onCancelClick()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (context is FirstDialogListener){
-            mListener = context
-        }else{
-            throw Exception("Your fragment or activity must implement the interface FirstDialogListener")
-        }
     }
 
     override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {

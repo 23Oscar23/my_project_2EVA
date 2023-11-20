@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import es.otm.myproject.databinding.ActivityListBinding
 import es.otm.myproject.fragments.*
 
-class ListActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ListAnimalsFragment.FragmentListAnimalsListener, FirstDialogFragment.FirstDialogListener, SecondDialogFragment.SecondDialogListener {
+class ListActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ListAnimalsFragment.FragmentListAnimalsListener, SecondDialogFragment.SecondDialogListener {
 
     private lateinit var binding: ActivityListBinding
 
@@ -130,21 +130,20 @@ class ListActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 replace<RodentsFragment>(R.id.myContent)
                 addToBackStack(null)
             }
-        } else {
+        } else if (animalName == "Bird") {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<BirdFragment>(R.id.myContent)
                 addToBackStack(null)
             }
         }
-    }
-
-    override fun onDialogClick() {
-        Snackbar.make(binding.root, "Pet Create Correctly", Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun onCancelClick() {
-        Snackbar.make(binding.root, "Creation Pet Cancel", Snackbar.LENGTH_SHORT).show()
+        else{
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<MyPetFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        }
     }
 
     override fun onYesClick() {
