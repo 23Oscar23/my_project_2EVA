@@ -1,40 +1,205 @@
 package es.otm.myproject
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.ListFragment
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.navigation.NavigationView
+import es.otm.myproject.databinding.ActivityListBinding
 import es.otm.myproject.databinding.ActivityMainBinding
-import es.otm.myproject.fragments.InicioFragment
-import es.otm.myproject.fragments.LoginFragment
+import es.otm.myproject.fragments.*
 
-class MainActivity : AppCompatActivity(), InicioFragment.OnInicioFragmentListener, LoginFragment.FragmentLoginListener {
+class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ListAnimalsFragment.FragmentListAnimalsListener, SecondDialogFragment.SecondDialogListener, MultimediaFragment.FragmentMultimediaListener {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityListBinding
+    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityListBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        setSupportActionBar(binding.myToolbar)
+
+        setUpNavigationDrawer()
+
     }
 
-    override fun onInicioButtonClick() {
-        supportFragmentManager.commit {
-            setReorderingAllowed(false)
-            replace<LoginFragment>(R.id.fragment_container)
-            addToBackStack(null)
+    override fun onResume() {
+        super.onResume()
+        pref = getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
-    override fun onRegisterClicked() {
-        Snackbar.make(binding.root, "User successfully registered", Snackbar.LENGTH_SHORT).show()
+    private fun setUpNavigationDrawer() {
+        val toogle = ActionBarDrawerToggle (
+            this,
+            binding.drawerLayout,
+            binding.myToolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close,
+        )
+        binding.drawerLayout.addDrawerListener(toogle)
+        toogle.syncState()
+
+        binding.navigationView.setNavigationItemSelectedListener(this)
     }
 
-    override fun onLoginClicked() {
-        val intent = Intent(this, ListActivity::class.java)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.list_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_settings ->{
+                SecondDialogFragment().show(this.supportFragmentManager, "")
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean{
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+
+        return when(item.itemId){
+            R.id.nav_pets ->{
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, ListAnimalsFragment())
+                    .commit()
+                true
+            }
+            R.id.nav_camera -> {
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, CameraFragment())
+                    .commit()
+                true
+            }
+            R.id.nav_tools -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.nav_share-> {
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, ShareFragment())
+                    .commit()
+                true
+            }
+            R.id.nav_retrofit -> {
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, RetrofitFragment())
+                    .commit()
+                true
+            }
+            R.id.nav_chat -> {
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, MensajesFragment())
+                    .commit()
+                true
+            }
+            R.id.nav_multimedia -> {
+                supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.myContent, MultimediaFragment())
+                    .commit()
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onAnimalClicked(animalName: String) {
+        if (animalName == "Dog") {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<DogFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        } else if (animalName == "Cat") {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<CatFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        } else if (animalName == "Rodents") {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<RodentsFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        } else if (animalName == "Bird") {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<BirdFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        }
+        else{
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<MyPetFragment>(R.id.myContent)
+                addToBackStack(null)
+            }
+        }
+    }
+
+    override fun onYesClick() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
+
+    override fun onBottomClick(item: MenuItem) {
+        when (item.itemId) {
+            R.id.audio -> {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<AudioFragment>(R.id.containerMultimedia)
+                    addToBackStack(null)
+                }
+                true
+            }
+            R.id.video -> {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<VideoFragment>(R.id.containerMultimedia)
+                    addToBackStack(null)
+                }
+                true
+            }
+            else -> false
+        }
+    }
+
 }

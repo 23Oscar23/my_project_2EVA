@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="taronja">#4E3023</color>
-    <color name="fondoLogin">#FF9800</color>
-    <color name="gray">#B5B5B5</color>
-    <color name="green">#4CAF50</color>
-    <color name="red">#F44336</color>
-    <color name="fondoanimales">#FAD26C</color>
+    <color name="Purple1">#FFBB86FC</color>
+    <color name="Purple2">#FF6200EE</color>
+    <color name="Purple3">#FF3700B3</color>
+    <color name="Cian">#FF03DAC5</color>
+    <color name="Blue">#2196F3</color>
+    <color name="BlueSea">#FF018786</color>
+    <color name="Black">#FF000000</color>
+    <color name="White">#FFFFFFFF</color>
+    <color name="Brown">#4E3023</color>
+    <color name="Orange">#FF9800</color>
+    <color name="Gray">#B5B5B5</color>
+    <color name="Green">#4CAF50</color>
+    <color name="Red">#F44336</color>
+    <color name="Yellow">#FAD26C</color>
 </resources>

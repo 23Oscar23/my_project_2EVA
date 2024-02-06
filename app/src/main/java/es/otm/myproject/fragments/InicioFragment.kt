@@ -1,12 +1,15 @@
 package es.otm.myproject.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import es.otm.myproject.MainActivity
 import es.otm.myproject.R
+import es.otm.myproject.SettingsActivity
 import es.otm.myproject.databinding.FragmentInicioBinding
 
 class InicioFragment : Fragment(), View.OnClickListener {

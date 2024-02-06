@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Love Pets</string>
+    <string name="actualizar">ACTUALIZAR</string>
     <string name="inicioSesion">INICIAR SESION</string>
     <string name="registrarse">REGISTRARSE</string>
-    <string name="nombreUsuario">USUARIO</string>
+    <string name="recordarContraseña">Recordar tu contraseña</string>
+    <string name="confirmarContraseña">CONFIRMAR CONTRASEÑA</string>
+    <string name="nombreUsuario">CORREO</string>
     <string name="contraseña">CONTRASEÑA</string>
     <string name="iniciar">EMPEZAR</string>
     <string name="miAnimal">MI MASCOTA</string>
@@ -60,10 +63,18 @@ Por otro lado, también podemos crear nuestra propia mascota, dándole su nombre
     <string name="higieneRoedores">Seleccionar el lecho adecuado es esencial para mantener la jaula de tus roedores limpia y cómoda. Opta por materiales absorbentes como virutas de madera o papel reciclado para controlar olores y proporcionar una superficie suave. Cambia el lecho regularmente para prevenir acumulaciones y garantizar un ambiente higiénico.\n\nEn cuanto a la prevención de parásitos, utiliza productos específicos para roedores, como sprays o polvos, siguiendo las indicaciones del fabricante y la orientación de un veterinario especializado. La prevención regular contribuirá a proteger a tus pequeños amigos contra pulgas, garrapatas y otros posibles parásitos.</string>
 
     <string name="telefonoContacto">TELEFONO DE CONTACTO</string>
-    <string name="recordarLogin">RECORDAR INICIO DE SESION</string>
-    <string name="notificaciones">NOTIFICACIONES</string>
-    <string name="activarNoty">ACTIVAR NOTIFICACIONES</string>
+    <string name="settingsChat">CHAT</string>
+    <string name="settingsCache">CACHE</string>
+    <string name="settingsGeneral">VIBRACION</string>
     <string name="salir">CERRAR SESION</string>
+    <string name="cacheMode">MODO OFFLINE</string>
 
     <string name="tituloMascota">TU MAGNIFICA MASCOTA</string>
+    <string name="audio">MUSIC</string>
+    <string name="video">VIDEO</string>
+    <string name="enviar">LOAD</string>
+    <string name="nombreVideo">Type the name of the video</string>
+    <string name="start">START</string>
+    <string name="pause">PAUSE</string>
+    <string name="stop">STOP</string>
 </resources>

@@ -10,7 +10,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/creatingPet"
-        android:background="@color/fondoLogin"
+        android:background="@color/Orange"
         android:textSize="30dp"
         android:textStyle="bold"
         android:textAlignment="center" />

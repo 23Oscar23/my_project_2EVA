@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Love Pets</string>
+    <string name="actualizar">UPDATE</string>
     <string name="inicioSesion">LOGIN</string>
     <string name="registrarse">REGISTER</string>
-    <string name="nombreUsuario">USERNAME</string>
+    <string name="nombreUsuario">EMAIL</string>
+    <string name="recordarContraseña">Remember your password</string>
     <string name="contraseña">PASSWORD</string>
+    <string name="confirmarContraseña">CONFIRM PASSWORD</string>
     <string name="iniciar">START</string>
     <string name="miAnimal">MY PET</string>
     <string name="camara">CAMERA</string>
@@ -60,11 +63,40 @@
     <string name="higieneRoedores">Selecting the right bedding is essential to keep your rodents cage clean and comfortable. Opt for absorbent materials such as wood shavings or recycled paper to control odours and provide a soft surface. Change litter regularly to prevent build-up and ensure a hygienic environment.\n\nFor parasite prevention, use rodent-specific products, such as sprays or powders, according to the manufacturers instructions and the guidance of a trained veterinarian. Regular prevention will help protect your little friends from fleas, ticks and other potential parasites.</string>
 
     <string name="telefonoContacto">CONTACT TELEPHONE NUMBER</string>
-    <string name="recordarLogin">REMEMBER LOGIN</string>
-    <string name="notificaciones">NOTIFICATIONS</string>
-    <string name="activarNoty">ACTIVATE NOTIFICATIONS</string>
+    <string name="settingsChat">CHAT</string>
+    <string name="settingsCache">CACHE</string>
+    <string name="settingsGeneral">VIBRATION</string>
     <string name="salir">LOG OUT</string>
+    <string name="cacheMode">OFFLINE MODE</string>
 
     <string name="tituloMascota">YOUR FANTASTIC PET</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="audio">MUSIC</string>
+    <string name="video">VIDEO</string>
+    <string name="enviar">LOAD</string>
+    <string name="nombreVideo">Type the name of the video</string>
+    <string name="start">START</string>
+    <string name="pause">PAUSE</string>
+    <string name="stop">STOP</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Cahce</string>
+    <string name="sync_vibrate">General</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Chat username</string>
+    <string name="reply_title">Color Picker</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Offline mode</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="sync_checkVibrate">Vibrate</string>
+    <string name="colorElegido">Color Pickle</string>
+    <string name="sync_recordar">Remember Login</string>
+
 
 </resources>

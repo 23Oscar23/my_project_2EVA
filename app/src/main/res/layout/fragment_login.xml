@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondoLogin"
+    android:background="@color/Orange"
     tools:context="fragments.LoginFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -25,16 +25,16 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="175dp"
-            android:layout_height="242dp"
-            android:src="@drawable/login"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_height="210dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/login" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="200dp"
             android:layout_marginEnd="30dp"
             android:hint="@string/nombreUsuario"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="330dp"
+            android:layout_marginTop="280dp"
             android:layout_marginEnd="30dp"
             android:hint="@string/contraseña"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,9 +62,23 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:inputType="textPassword"
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textRecordar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="360dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:textColor="@color/Blue"
+            android:text="@string/recordarContraseña"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnLogin"

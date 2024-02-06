@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".ListActivity"
+    tools:context=".MainActivity"
     android:theme="@style/Theme.MyProject">
 
     <androidx.constraintlayout.widget.ConstraintLayout
