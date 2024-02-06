@@ -1,0 +1,37 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/settingsChat">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true"/>
+
+        <es.otm.myproject.classes.ColorClass
+            android:key="color_preferences"
+            android:title="@string/colorElegido"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="offline_mode"
+            app:title="@string/sync_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/sync_vibrate">
+
+        <CheckBoxPreference
+            app:key="vibrate"
+            app:title="@string/sync_checkVibrate"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

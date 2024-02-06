@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "475531821277",
+    "project_id": "proyecto2dam-a87a3",
+    "storage_bucket": "proyecto2dam-a87a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475531821277:android:1cf78df50e6806b5d0db34",
+        "android_client_info": {
+          "package_name": "es.otm.myproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7A06prIfHYEGyE-UFLdQ5THXm1PODq3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
