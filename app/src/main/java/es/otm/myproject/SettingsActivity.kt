@@ -15,7 +15,6 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-
      companion object{
         val USERNAME = "signature"
         val COLOR = "color_preferences"

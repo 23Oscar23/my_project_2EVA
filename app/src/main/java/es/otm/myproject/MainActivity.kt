@@ -32,6 +32,8 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         setContentView(view)
         setSupportActionBar(binding.myToolbar)
 
+        pref = getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
+
         askNotificationPermission()
         setUpNavigationDrawer()
     }
@@ -179,6 +181,7 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     override fun onYesClick() {
         AuthManager().logOut()
+        pref.edit().clear().apply()
         finish()
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
