@@ -15,7 +15,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    companion object{
+
+     companion object{
         val USERNAME = "signature"
         val COLOR = "color_preferences"
         val OFFLINE = "offline_mode"

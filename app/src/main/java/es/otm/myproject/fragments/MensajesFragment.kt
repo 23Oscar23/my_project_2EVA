@@ -67,6 +67,7 @@ class MensajesFragment : Fragment() {
                     listMensajes.addAll(mensajesUpdated)
                     withContext(Dispatchers.Main){
                         mAdapter.notifyDataSetChanged()
+                        binding.recViewMensajes.scrollToPosition(listMensajes.size - 1)
                     }
                 }
         }
@@ -76,15 +77,23 @@ class MensajesFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO){
             try {
                 val newMensaje = Chat(title = usuario, content = contenido)
-                val inserted = firestoreManager.add(newMensaje)
+                if (!contenido.isNullOrBlank()) {
+                    val inserted = firestoreManager.add(newMensaje)
 
-                withContext(Dispatchers.Main){
-                    if (inserted) {
-                        Toast.makeText(requireContext(), "Mensaje enviado", Toast.LENGTH_SHORT)
-                            .show()
-                    }else{
-                        Toast.makeText(requireContext(), "Error al enviar mensaje", Toast.LENGTH_SHORT)
-                            .show()
+                    withContext(Dispatchers.Main) {
+                        if (inserted) {
+                            Toast.makeText(requireContext(), "Mensaje enviado", Toast.LENGTH_SHORT)
+                                .show()
+                            binding.recViewMensajes.scrollToPosition(listMensajes.size - 1)
+                            binding.contenidoMensaje.text.clear()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error al enviar mensaje",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                     }
                 }
             }catch (e: Exception){

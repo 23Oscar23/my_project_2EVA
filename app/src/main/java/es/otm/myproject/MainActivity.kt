@@ -102,14 +102,6 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 startActivity(intent)
                 true
             }
-            R.id.nav_share-> {
-                supportFragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .addToBackStack(null)
-                    .replace(R.id.myContent, ShareFragment())
-                    .commit()
-                true
-            }
             R.id.nav_retrofit -> {
                 supportFragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
@@ -175,6 +167,8 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
     override fun onYesClick() {
+        AuthManager().logOut()
+        finish()
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

@@ -97,6 +97,7 @@
     <string name="sync_checkVibrate">Vibrate</string>
     <string name="colorElegido">Color Pickle</string>
     <string name="sync_recordar">Remember Login</string>
+    <string name="breedTry">Type the breed of a cat</string>
 
 
 </resources>

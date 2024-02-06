@@ -19,6 +19,10 @@ class LoginActivity : AppCompatActivity(), InicioFragment.OnInicioFragmentListen
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (AuthManager().getCurrentUser() != null){
+            onLoginClicked()
+        }
     }
 
     override fun onLoginClicked() {

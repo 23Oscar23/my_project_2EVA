@@ -5,56 +5,88 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import es.otm.myproject.CatService
 import es.otm.myproject.R
+import es.otm.myproject.RetrofitObject
+import es.otm.myproject.adapters.CatsAdapter
+import es.otm.myproject.databinding.ActivityListBinding
+import es.otm.myproject.databinding.FragmentRetrofitBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RetrofitFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RetrofitFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentRetrofitBinding
+    private lateinit var mAdapter: CatsAdapter
+    private var listCats: MutableList<String> = mutableListOf()
+    private var descriptions: MutableList<String> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_retrofit, container, false)
+
+        binding = FragmentRetrofitBinding.inflate(layoutInflater)
+
+        binding.button.setOnClickListener{
+            val breed = binding.editText.text.toString()
+            if (!breed.isNullOrEmpty()) {
+                searchCatByBreed(breed)
+                binding.editText.text.clear()
+            } else {
+                Toast.makeText(requireContext(), "Enter a cat breed", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        setUpRecycler()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RetrofitFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RetrofitFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setUpRecycler(){
+        mAdapter = CatsAdapter(listCats, descriptions)
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.recyclerView.adapter = mAdapter
     }
+
+    private fun searchCatByBreed(breedName: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val breedResponse = RetrofitObject.getInstance().create(CatService::class.java).getBreed(breedName)
+                if (breedResponse.isSuccessful) {
+                    val breedId = breedResponse.body()?.firstOrNull()?.id
+                    val breedDescription = breedResponse.body()?.firstOrNull()?.description
+                    if (breedId != null) {
+                        val catResponse = RetrofitObject.getInstance().create(CatService::class.java).getCats(breedId)
+                        withContext(Dispatchers.Main) {
+                            if (catResponse.isSuccessful) {
+                                val cats = catResponse.body()
+                                if (!cats.isNullOrEmpty()) {
+                                    listCats.clear()
+                                    descriptions.clear()
+                                    listCats.addAll(cats.map { cat -> cat.url })
+                                    descriptions.addAll(cats.map { cat -> breedDescription ?: "" })
+                                    mAdapter.notifyDataSetChanged()
+                                } else {
+                                    Toast.makeText(requireContext(), "No cats found for this breed", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to get cats", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Breed not found", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Failed to get breed", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                e.toString()
+            }
+        }
+    }
+
 }
