@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -29,8 +32,16 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         setContentView(view)
         setSupportActionBar(binding.myToolbar)
 
+        askNotificationPermission()
         setUpNavigationDrawer()
+    }
 
+    fun askNotificationPermission(){
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                21
+            )
+        }
     }
 
     override fun onResume() {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import es.otm.myproject.SettingsActivity
 import es.otm.myproject.adapters.ChatAdapter
 import es.otm.myproject.classes.Chat
 import es.otm.myproject.databinding.FragmentMensajesBinding
+import es.otm.myproject.service.PushNotificationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -82,6 +84,9 @@ class MensajesFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         if (inserted) {
+                            val notification = PushNotificationService(requireContext())
+                            notification.mostrarNotificacion("New Message", "You have a new message")
+
                             Toast.makeText(requireContext(), "Mensaje enviado", Toast.LENGTH_SHORT)
                                 .show()
                             binding.recViewMensajes.scrollToPosition(listMensajes.size - 1)
@@ -97,9 +102,7 @@ class MensajesFragment : Fragment() {
                     }
                 }
             }catch (e: Exception){
-                withContext(Dispatchers.Main){
-                    Toast.makeText(requireContext(), "Mensaje no se ha podido enviar", Toast.LENGTH_SHORT).show()
-                }
+                Log.e("Error", "Error al enviar el mensaje: ${e.message}", e)
             }
         }
     }
