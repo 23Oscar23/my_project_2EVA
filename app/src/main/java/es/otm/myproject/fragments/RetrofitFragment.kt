@@ -31,7 +31,6 @@ class RetrofitFragment : Fragment() {
     private lateinit var pref : SharedPreferences
     private var listCats: MutableList<String> = mutableListOf()
     private var descriptions: MutableList<String> = mutableListOf()
-    private var cats = mutableListOf<Cat>()
     private lateinit var database: CatDB
     private var lastBreed: String = ""
     private var comprobarConexion: Boolean = true
@@ -53,11 +52,11 @@ class RetrofitFragment : Fragment() {
         comprobarConexion = pref.getBoolean(SettingsActivity.OFFLINE, true)
 
         binding.button.setOnClickListener{
-            if (comprobarConexion){
-                Toast.makeText(requireContext(), "Offline Mode Is Activated", Toast.LENGTH_SHORT).show()
-                showDatabase()
-            }
-            else {
+//            if (comprobarConexion){
+//                Toast.makeText(requireContext(), "Offline Mode Is Activated", Toast.LENGTH_SHORT).show()
+//                showDatabase()
+//            }
+            //else {
                 val breed = binding.editText.text.toString()
                 if (!breed.isNullOrEmpty()) {
                     lastBreed = breed
@@ -66,7 +65,7 @@ class RetrofitFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Enter a cat breed", Toast.LENGTH_SHORT).show()
                 }
-            }
+            //}
         }
 
         binding.buttonNext.setOnClickListener {
@@ -82,13 +81,13 @@ class RetrofitFragment : Fragment() {
     }
 
     private fun setUpRecycler(isOffline: Boolean){
-        val spanCount: Int
-        if (isOffline){
-            spanCount = 2
-        }
-        else{
-            spanCount = 1
-        }
+        val spanCount: Int =
+            if (isOffline){
+                1
+            }
+            else{
+                2
+            }
         mAdapter = CatsAdapter(listCats, descriptions)
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), spanCount)
         binding.recyclerView.adapter = mAdapter
@@ -114,16 +113,21 @@ class RetrofitFragment : Fragment() {
                                     listCats.addAll(cats.map { cat -> cat.url })
                                     descriptions.addAll(cats.map { cat -> breedDescription ?: "" })
 
-//                                    if (comprobarConexion.equals("true")) {
-//                                        CatDB.getInstance(requireContext()).catDAO().insert(
-//                                            Cat(
-//                                                breed = breedName,
-//                                                description = breedDescription ?: ""
-//                                            )
-//                                        )
-//                                    }
-                                    withContext(Dispatchers.Main) {
-                                        mAdapter.notifyDataSetChanged()
+                                    if (comprobarConexion) {
+                                        val catDao = database.catDAO()
+                                        catDao.insert(
+                                            Cat(
+                                                breed = breedName,
+                                                description = breedDescription
+                                            )
+                                        )
+                                        withContext(Dispatchers.Main) {
+                                            mAdapter.notifyDataSetChanged()
+                                        }
+                                    }else {
+                                        withContext(Dispatchers.Main) {
+                                            mAdapter.notifyDataSetChanged()
+                                        }
                                     }
                                 } else {
                                     Toast.makeText(requireContext(), "No images found for this breed", Toast.LENGTH_SHORT).show()
@@ -146,18 +150,18 @@ class RetrofitFragment : Fragment() {
         }
     }
 
-    private fun showDatabase(){
-        lifecycleScope.launch(Dispatchers.IO){
-            val cats = database.catDAO().getAll()
-
-            withContext(Dispatchers.Main){
-                listCats.clear()
-                descriptions.clear()
-                listCats.addAll(cats.map { cat -> cat.breed })
-                descriptions.addAll(cats.map { cat -> cat.description })
-                mAdapter.notifyDataSetChanged()
-            }
-        }
-    }
+//    private fun showDatabase(){
+//        lifecycleScope.launch(Dispatchers.IO){
+//            val cats = database.catDAO().getAll()
+//
+//            withContext(Dispatchers.Main){
+//                listCats.clear()
+//                descriptions.clear()
+//                listCats.addAll(cats.map { cat -> cat.breed })
+//                descriptions.addAll(cats.map { cat -> cat.description })
+//                mAdapter.notifyDataSetChanged()
+//            }
+//        }
+//    }
 
 }
