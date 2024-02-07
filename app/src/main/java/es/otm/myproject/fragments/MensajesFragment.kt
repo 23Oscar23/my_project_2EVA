@@ -18,6 +18,8 @@ import es.otm.myproject.R
 import es.otm.myproject.SettingsActivity
 import es.otm.myproject.adapters.ChatAdapter
 import es.otm.myproject.classes.Chat
+import es.otm.myproject.database.Cat
+import es.otm.myproject.database.CatDB
 import es.otm.myproject.databinding.FragmentMensajesBinding
 import es.otm.myproject.service.PushNotificationService
 import kotlinx.coroutines.Dispatchers
@@ -56,10 +58,9 @@ class MensajesFragment : Fragment() {
     }
 
     fun setUpRecyler(){
-        val selectedColor = pref.getInt(SettingsActivity.COLOR, Color.BLACK)
         listMensajes = mutableListOf()
         binding.recViewMensajes.layoutManager = GridLayoutManager(requireContext(), 1)
-        mAdapter = ChatAdapter(requireContext(), listMensajes, selectedColor)
+        mAdapter = ChatAdapter(requireContext(), listMensajes)
         binding.recViewMensajes.adapter = mAdapter
 
         lifecycleScope.launch(Dispatchers.IO){

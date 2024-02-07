@@ -12,6 +12,7 @@
         <es.otm.myproject.classes.ColorClass
             android:key="color_preferences"
             android:title="@string/colorElegido"
+            android:defaultValue="@color/Orange"
             />
 
     </PreferenceCategory>

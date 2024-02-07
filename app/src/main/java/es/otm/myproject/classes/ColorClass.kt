@@ -9,7 +9,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import es.otm.myproject.SettingsActivity
 
 class ColorClass(context: Context, attrs: AttributeSet): Preference(context, attrs){
-    private var selectedColor: Int = Color.BLACK
+    private var selectedColor: Int = Color.YELLOW
 
     init {
         setOnPreferenceClickListener {
@@ -40,7 +40,7 @@ class ColorClass(context: Context, attrs: AttributeSet): Preference(context, att
 
     override fun onSetInitialValue(defaultValue: Any?) {
         super.onSetInitialValue(defaultValue)
-        selectedColor = getPersistedInt(Color.BLACK)
+        selectedColor = getPersistedInt(Color.YELLOW)
     }
 
 }

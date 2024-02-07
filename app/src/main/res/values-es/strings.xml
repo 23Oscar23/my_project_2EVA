@@ -4,7 +4,7 @@
     <string name="actualizar">ACTUALIZAR</string>
     <string name="inicioSesion">INICIAR SESION</string>
     <string name="registrarse">REGISTRARSE</string>
-    <string name="recordarContraseña">Recordar tu contraseña</string>
+    <string name="recordarContraseña">Has olvidado tu contraseña?</string>
     <string name="confirmarContraseña">CONFIRMAR CONTRASEÑA</string>
     <string name="nombreUsuario">CORREO</string>
     <string name="contraseña">CONTRASEÑA</string>
@@ -77,4 +77,23 @@ Por otro lado, también podemos crear nuestra propia mascota, dándole su nombre
     <string name="start">START</string>
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Cahce</string>
+    <string name="sync_vibrate">General</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Nich Chat</string>
+    <string name="reply_title">Elegir color</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Modo offline</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="sync_checkVibrate">Vibracion</string>
+    <string name="colorElegido">Color Elegido</string>
+    <string name="sync_recordar">Recordar Inicio</string>
+    <string name="breedTry">Introduce la raza de gato</string>
 </resources>

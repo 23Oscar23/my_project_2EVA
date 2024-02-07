@@ -4,7 +4,7 @@
     <string name="inicioSesion">LOGIN</string>
     <string name="registrarse">REGISTER</string>
     <string name="nombreUsuario">EMAIL</string>
-    <string name="recordarContraseña">Remember your password</string>
+    <string name="recordarContraseña">You forget the password?</string>
     <string name="contraseña">PASSWORD</string>
     <string name="confirmarContraseña">CONFIRM PASSWORD</string>
     <string name="iniciar">START</string>
@@ -70,8 +70,6 @@
     <string name="cacheMode">OFFLINE MODE</string>
 
     <string name="tituloMascota">YOUR FANTASTIC PET</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="audio">MUSIC</string>
     <string name="video">VIDEO</string>
     <string name="enviar">LOAD</string>
@@ -98,6 +96,7 @@
     <string name="colorElegido">Color Pickle</string>
     <string name="sync_recordar">Remember Login</string>
     <string name="breedTry">Type the breed of a cat</string>
-
+    <string name="siguiente">Next</string>
+    <string name="buscar">Search</string>
 
 </resources>
