@@ -2,6 +2,9 @@ package es.otm.myproject.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +14,10 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import es.otm.myproject.CatService
-import es.otm.myproject.R
 import es.otm.myproject.RetrofitObject
 import es.otm.myproject.adapters.CatsAdapter
 import es.otm.myproject.database.Cat
 import es.otm.myproject.database.CatDB
-import es.otm.myproject.databinding.ActivityListBinding
 import es.otm.myproject.databinding.FragmentRetrofitBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,15 +49,17 @@ class RetrofitFragment : Fragment() {
             "CatDB"
         ).build()
 
+        val conexion = comprobarConexionDispositivo(requireContext())
+
         pref = requireContext().getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
         comprobarConexion = pref.getBoolean(SettingsActivity.OFFLINE, true)
 
         binding.button.setOnClickListener{
-//            if (comprobarConexion){
-//                Toast.makeText(requireContext(), "Offline Mode Is Activated", Toast.LENGTH_SHORT).show()
-//                showDatabase()
-//            }
-            //else {
+            if (comprobarConexion && !conexion){
+                Toast.makeText(requireContext(), "You don't have conexion", Toast.LENGTH_SHORT).show()
+                showDatabase()
+            }
+            else {
                 val breed = binding.editText.text.toString()
                 if (!breed.isNullOrEmpty()) {
                     lastBreed = breed
@@ -65,7 +68,7 @@ class RetrofitFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Enter a cat breed", Toast.LENGTH_SHORT).show()
                 }
-            //}
+            }
         }
 
         binding.buttonNext.setOnClickListener {
@@ -76,20 +79,13 @@ class RetrofitFragment : Fragment() {
             }
         }
 
-        setUpRecycler(comprobarConexion)
+        setUpRecycler()
         return binding.root
     }
 
-    private fun setUpRecycler(isOffline: Boolean){
-        val spanCount: Int =
-            if (isOffline){
-                1
-            }
-            else{
-                2
-            }
+    private fun setUpRecycler(){
         mAdapter = CatsAdapter(listCats, descriptions)
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), spanCount)
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.recyclerView.adapter = mAdapter
     }
 
@@ -150,18 +146,34 @@ class RetrofitFragment : Fragment() {
         }
     }
 
-//    private fun showDatabase(){
-//        lifecycleScope.launch(Dispatchers.IO){
-//            val cats = database.catDAO().getAll()
-//
-//            withContext(Dispatchers.Main){
-//                listCats.clear()
-//                descriptions.clear()
-//                listCats.addAll(cats.map { cat -> cat.breed })
-//                descriptions.addAll(cats.map { cat -> cat.description })
-//                mAdapter.notifyDataSetChanged()
-//            }
-//        }
-//    }
+    private fun showDatabase(){
+        lifecycleScope.launch(Dispatchers.IO){
+            val cats = database.catDAO().getAll()
+
+            withContext(Dispatchers.Main){
+                listCats.clear()
+                descriptions.clear()
+                listCats.addAll(cats.map { cat -> cat.breed })
+                descriptions.addAll(cats.map { cat -> cat.description })
+                mAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun comprobarConexionDispositivo(context: Context): Boolean{
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            val networkCapabilities = connectivityManager.activeNetwork?: return false
+            val networkInfo = connectivityManager.getNetworkCapabilities(networkCapabilities)?: return false
+
+            return networkInfo.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || networkInfo.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+        }
+        else{
+            val networkInfo = connectivityManager.activeNetworkInfo
+            return networkInfo != null && networkInfo.isConnected
+
+        }
+    }
 
 }
