@@ -16,6 +16,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.navigation.NavigationView
+import es.otm.myproject.classes.ColorClass
 import es.otm.myproject.databinding.ActivityListBinding
 import es.otm.myproject.databinding.ActivityMainBinding
 import es.otm.myproject.fragments.*
@@ -33,6 +34,10 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         setSupportActionBar(binding.myToolbar)
 
         pref = getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
+
+        if (!pref.contains(SettingsActivity.COLOR)) {
+            pref.edit().putInt(SettingsActivity.COLOR, ColorClass.DEFAULT_COLOR).apply()
+        }
 
         askNotificationPermission()
         setUpNavigationDrawer()
@@ -181,6 +186,7 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     override fun onYesClick() {
         AuthManager().logOut()
+        pref.edit().putInt(SettingsActivity.COLOR, ColorClass.DEFAULT_COLOR).apply()
         pref.edit().clear().apply()
         finish()
         val intent = Intent(this, LoginActivity::class.java)

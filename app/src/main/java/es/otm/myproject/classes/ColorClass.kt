@@ -9,7 +9,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import es.otm.myproject.SettingsActivity
 
 class ColorClass(context: Context, attrs: AttributeSet): Preference(context, attrs){
-    private var selectedColor: Int = Color.YELLOW
+    private var selectedColor: Int = DEFAULT_COLOR
 
     init {
         setOnPreferenceClickListener {
@@ -35,12 +35,15 @@ class ColorClass(context: Context, attrs: AttributeSet): Preference(context, att
     }
 
     override fun getSummary(): CharSequence? {
-        return String.format("#%06X", 0xFFFFF and selectedColor)
+        return String.format("#%06X", 0xFFFFFF and selectedColor)
     }
 
     override fun onSetInitialValue(defaultValue: Any?) {
         super.onSetInitialValue(defaultValue)
-        selectedColor = getPersistedInt(Color.YELLOW)
+        selectedColor = getPersistedInt(DEFAULT_COLOR)
     }
 
+    companion object{
+        val DEFAULT_COLOR = Color.parseColor("#FCA400")
+    }
 }
