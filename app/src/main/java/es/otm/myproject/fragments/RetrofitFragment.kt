@@ -34,7 +34,7 @@ class RetrofitFragment : Fragment() {
     private var descriptions: MutableList<String> = mutableListOf()
     private lateinit var database: CatDB
     private var lastBreed: String = ""
-    private var comprobarConexion: Boolean = true
+    private var comprobarConexion: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class RetrofitFragment : Fragment() {
         val conexion = comprobarConexionDispositivo(requireContext())
 
         pref = requireContext().getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
-        comprobarConexion = pref.getBoolean(SettingsActivity.OFFLINE, true)
+        comprobarConexion = pref.getBoolean(SettingsActivity.OFFLINE, false)
 
         binding.button.setOnClickListener{
             if (comprobarConexion && !conexion){
