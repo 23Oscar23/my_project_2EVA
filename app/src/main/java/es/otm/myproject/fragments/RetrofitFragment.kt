@@ -73,6 +73,8 @@ class RetrofitFragment : Fragment() {
 
         binding.buttonNext.setOnClickListener {
             if (lastBreed.isNotEmpty()) {
+                listCats.removeAt(0)
+                descriptions.removeAt(0)
                 searchCatByBreed(lastBreed)
             } else {
                 Toast.makeText(requireContext(), "No previous breed searched", Toast.LENGTH_SHORT).show()
@@ -104,10 +106,8 @@ class RetrofitFragment : Fragment() {
                             if (catResponse.isSuccessful) {
                                 val cats = catResponse.body()
                                 if (!cats.isNullOrEmpty()) {
-                                    listCats.clear()
-                                    descriptions.clear()
-                                    listCats.addAll(cats.map { cat -> cat.url })
-                                    descriptions.addAll(cats.map { cat -> breedDescription ?: "" })
+                                    listCats.addAll(0, cats.map { cat -> cat.url })
+                                    descriptions.addAll(0, cats.map { cat -> breedDescription ?: "" })
 
                                     if (comprobarConexion) {
                                         val catDao = database.catDAO()
@@ -153,8 +153,8 @@ class RetrofitFragment : Fragment() {
             withContext(Dispatchers.Main){
                 listCats.clear()
                 descriptions.clear()
-                listCats.addAll(cats.map { cat -> cat.breed })
-                descriptions.addAll(cats.map { cat -> cat.description })
+                listCats.addAll(0, cats.map { cat -> cat.breed })
+                descriptions.addAll(0, cats.map { cat -> cat.description })
                 mAdapter.notifyDataSetChanged()
             }
         }
