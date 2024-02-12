@@ -31,10 +31,10 @@ class FirebaseChat {
         var chatCollection: CollectionReference? = null
         try {
             chatCollection = FirebaseFirestore.getInstance().collection("Chat")
-            val subscription = chatCollection?.orderBy("createdAt", Query.Direction.ASCENDING)?.addSnapshotListener{ snapshot, _ ->
+            val subscription = chatCollection.orderBy("createdAt", Query.Direction.ASCENDING).addSnapshotListener{ snapshot, _ ->
                 if (snapshot != null) {
                     val chats = mutableListOf<Chat>()
-                    snapshot?.forEach {
+                    snapshot.forEach {
                         chats.add(
                             Chat(
                                 id = it.id,
@@ -47,7 +47,7 @@ class FirebaseChat {
                     trySend(chats)
                 }
             }
-            awaitClose { subscription?.remove() }
+            awaitClose { subscription.remove() }
         }catch (e : Throwable){
             close(e)
         }
