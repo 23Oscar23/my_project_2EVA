@@ -40,6 +40,7 @@ class FirebaseChat {
                                 id = it.id,
                                 title = it.get("title").toString(),
                                 content = it.get("content").toString(),
+                                userId = it.get("userId").toString()
                             )
                         )
                     }

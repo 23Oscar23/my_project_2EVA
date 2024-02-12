@@ -98,5 +98,6 @@
     <string name="breedTry">Type the breed of a cat</string>
     <string name="siguiente">Next</string>
     <string name="buscar">Search</string>
+    <string name="enviarMensaje">SEND</string>
 
 </resources>

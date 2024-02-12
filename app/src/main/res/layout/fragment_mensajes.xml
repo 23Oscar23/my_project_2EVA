@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF8F2"
     tools:context=".fragments.MensajesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +42,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="end|bottom"
             android:layout_marginEnd="20dp"
-            android:text="@string/enviar" />
+            android:text="@string/enviarMensaje" />
 
     </LinearLayout>
 

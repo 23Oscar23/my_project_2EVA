@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,7 +37,16 @@ class CameraFragment : Fragment() {
                     CAMERA_PERMISSION_CODE
                 )
             }else{
-                Toast.makeText(requireContext(), "Permiso concedido, abriendo camara", Toast.LENGTH_SHORT).show()
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
+                    startActivityForResult(takePictureIntent, 1002)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No se pudo abrir la cámara",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
         return binding.root

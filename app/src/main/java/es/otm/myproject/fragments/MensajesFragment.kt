@@ -44,13 +44,15 @@ class MensajesFragment : Fragment() {
 
         pref = requireContext().getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
 
+        val remitente = AuthManager().getCurrentUser()?.email.toString()
+
         binding.btnEnviarMensajes.setOnClickListener{
             var user = pref.getString(SettingsActivity.USERNAME, "").toString()
             if (user.isNullOrEmpty()){
                 user = AuthManager().getCurrentUser()?.email.toString()
             }
             val mensaje = binding.contenidoMensaje.text.toString()
-            mensajesChat(user, mensaje)
+            mensajesChat(user, mensaje, remitente)
         }
 
         setUpRecyler()
@@ -66,20 +68,18 @@ class MensajesFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO){
             firestoreManager.getNotesFlow()
                 .collect{ mensajesUpdated ->
-                    listMensajes.clear()
-                    listMensajes.addAll(mensajesUpdated)
                     withContext(Dispatchers.Main){
-                        mAdapter.notifyDataSetChanged()
+                        mAdapter.updateList(mensajesUpdated)
                         binding.recViewMensajes.scrollToPosition(listMensajes.size - 1)
                     }
                 }
         }
     }
 
-    private fun mensajesChat(usuario: String, contenido: String){
+    private fun mensajesChat(usuario: String, contenido: String, remitente: String){
         lifecycleScope.launch(Dispatchers.IO){
             try {
-                val newMensaje = Chat(title = usuario, content = contenido)
+                val newMensaje = Chat(title = usuario, content = contenido, userId = remitente)
                 if (!contenido.isNullOrBlank()) {
                     val inserted = firestoreManager.add(newMensaje)
 
