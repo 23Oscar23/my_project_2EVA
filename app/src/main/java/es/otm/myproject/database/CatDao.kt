@@ -1,6 +1,7 @@
 package es.otm.myproject.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -12,4 +13,7 @@ interface CatDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(cat: Cat)
+
+    @Query("DELETE FROM cat")
+    suspend fun deleteAll()
 }

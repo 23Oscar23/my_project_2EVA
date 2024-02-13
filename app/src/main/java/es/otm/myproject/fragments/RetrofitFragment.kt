@@ -54,6 +54,10 @@ class RetrofitFragment : Fragment() {
         pref = requireContext().getSharedPreferences("es.otm.myproject_preferences", Context.MODE_PRIVATE)
         comprobarConexion = pref.getBoolean(SettingsActivity.OFFLINE, false)
 
+        if (!comprobarConexion){
+            clearDatabase()
+        }
+
         binding.button.setOnClickListener{
             if (comprobarConexion && !conexion){
                 Toast.makeText(requireContext(), "You don't have conexion", Toast.LENGTH_SHORT).show()
@@ -155,6 +159,15 @@ class RetrofitFragment : Fragment() {
                 descriptions.clear()
                 listCats.addAll(0, cats.map { cat -> cat.breed })
                 descriptions.addAll(0, cats.map { cat -> cat.description })
+                mAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun clearDatabase(){
+        lifecycleScope.launch(Dispatchers.IO){
+            database.catDAO().deleteAll()
+            withContext(Dispatchers.Main){
                 mAdapter.notifyDataSetChanged()
             }
         }
